@@ -1,5 +1,7 @@
 # Tick Sighting Tracker
 
+Video: https://youtu.be/UBbaoad5Tuc
+
 Backend MVP for Elanco's UK tick sighting task. It downloads the raw sighting data from the Elanco API,
 cleans and stores it in its own database, and exposes REST endpoints to search, filter and summarise it.
 
