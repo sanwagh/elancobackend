@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      # Named volume so the H2 database survives container restarts and rebuilds.
+      - tick-data:/app/data
+    environment:
+      # Any setting in application.yml can be overridden like this (Spring "relaxed binding").
+      # Uncomment to change how often the data refreshes (ISO-8601 duration):
+      # INGESTION_REFRESH_INTERVAL: PT1H
+      # Uncomment to point at a different upstream:
+      # UPSTREAM_BASE_URL: https://dev-task.elancoapps.com/data
+      TZ: UTC
+    restart: unless-stopped
+
+volumes:
+  tick-data:

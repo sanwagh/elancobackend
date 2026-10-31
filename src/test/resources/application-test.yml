@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    # In-memory so tests never touch the real ./data file.
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+
+upstream:
+  read-timeout: 1s
+  retry:
+    max-retries: 2
+    delay-ms: 10
+
+ingestion:
+  scheduler-enabled: false   # tests must never call the real upstream

@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: elancobackend
+  datasource:
+    # File-based H2 so data survives restarts with zero setup.
+    # To move to Postgres, change url/driver/username/password here and add the driver dependency.
+    url: jdbc:h2:file:./data/ticktracker
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      # "update" creates/alters tables automatically. Fine for an MVP; use migrations in production.
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate.jdbc.batch_size: 100   # send inserts in groups of 100 for large datasets
+  h2:
+    console:
+      enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+upstream:
+  base-url: https://dev-task.elancoapps.com/data
+  connect-timeout: 5s
+  read-timeout: 15s
+  retry:
+    max-retries: 3   # retries after the first attempt, so up to 4 calls in total
+    delay-ms: 1000   # first wait; multiplied each retry (1s, 2s, 4s)
+    multiplier: 2
+
+ingestion:
+  scheduler-enabled: true
+  refresh-interval: PT6H   # ISO-8601 duration: how long to wait between refreshes (6 hours)
